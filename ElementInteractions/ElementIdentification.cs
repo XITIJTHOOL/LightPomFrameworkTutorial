@@ -156,8 +156,8 @@ namespace ElementInteractions
             Assert.AreEqual(myElement.Text, "Click Me!");
             Assert.AreEqual("button", myElement.TagName);
             Assert.AreEqual(21, myElement.Size.Height);
-            Assert.AreEqual(190, myElement.Location.X);
-            Assert.AreEqual(330, myElement.Location.Y);
+            Assert.AreEqual(135, myElement.Location.X);
+            Assert.AreEqual(203, myElement.Location.Y);
         }
 
 
