@@ -61,12 +61,26 @@ namespace WebdriverTimeoutsTutorial
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
             wait.Until(ExpectedConditions.ElementToBeClickable(ElementToWaitFor)).Click();
         }
-        [TestMethod]
+        
+         [TestMethod]
         public void Test4_ExplicitWait_RenderedAfter()
         {
             _driver.Navigate().GoToUrl(URL.ElementRenderedAfterUrl);
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
-            wait.Until(ExpectedConditions.ElementToBeClickable(ElementToWaitFor)).Click();
+            wait.IgnoreExceptionTypes(typeof(WebDriverTimeoutException));
+            wait.Message = "Tried to find element with ID finish but the element wasn't clickable on the page after 5 seconds";
+            try
+            {
+                var x = wait.Until(ExpectedConditions.ElementToBeClickable(ElementToWaitFor));
+
+            }
+            catch (WebDriverTimeoutException)
+            {
+                _driver.FindElement(By.TagName("button")).Click();
+                wait.Timeout = TimeSpan.FromSeconds(10);
+                wait.Until(ExpectedConditions.ElementToBeClickable(ElementToWaitFor)).Click();
+            }
+            
         }
         //Quiz
         //1. open page
