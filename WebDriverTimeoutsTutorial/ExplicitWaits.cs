@@ -86,25 +86,26 @@ namespace WebdriverTimeoutsTutorial
         //1. open page
         //2. synchronize on slowest loading element
         //3. proceed with actions
-        [TestMethod]
+         [TestMethod]
         public void HowToCorrectlySynchronize()
         {
 
             _driver.Navigate().GoToUrl("https://www.ultimateqa.com");
             _driver.Manage().Window.Maximize();
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
-            var firstSyncElement = By.XPath("//*[@class='et_parallax_bg et_pb_parallax_css et_pb_inner_shadow']");
+            var firstSyncElement = By.XPath("//img[@src='https://ultimateqa.com/wp-content/uploads/2018/05/coding-isometric-01.png']");
             wait.Until(ExpectedConditions.ElementIsVisible(firstSyncElement));
 
             wait.Until(ExpectedConditions.ElementToBeClickable(By.LinkText("Automation Exercises"))).Click();
 
-            wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()='Automation Practice']")));
-            _driver.FindElement(By.LinkText("Big page with many elements")).Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='Automation_Practice']")));
 
-            var finalElement = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@title='girl with laptop 2']")));
+             _driver.FindElement(By.LinkText("Big page with many elements")).Click();
+
+            var finalElement = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@class='tve_image wp-image-4039']")));
             Assert.IsTrue(finalElement.Displayed);
         }
-
+        
         private void FillOutCreditCardInfo()
         {
             _driver.FindElement(By.Id("name")).SendKeys("test name");
