@@ -88,7 +88,9 @@ namespace ElementInteractions
              -When debugging and testing, make sure that you scroll the element into view, Selenium
              will not scroll for you. Not yet...
              */
-            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/simple-html-elements-for-automation/");        
+            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/simple-html-elements-for-automation/"); 
+            Driver.Manage().Window.Maximize();
+           //To view the select dropown box on the screen
             //click any radio button, hint:  FindElement().Click();
             Driver.FindElement(By.XPath("//*[@type='radio'][@value='male']")).Click();
             //select one checkbox
@@ -99,17 +101,20 @@ namespace ElementInteractions
             //open Tab2 and assert that it is opened. Hint, use .Text property when you find the element
             Driver.FindElement(By.XPath("//li[@class='et_pb_tab_1']")).Click();
             Assert.AreEqual("Tab 2 content", 
-                Driver.FindElement(By.XPath("//*[@class='et_pb_tab clearfix et_pb_tab_1 et-pb-active-slide']")).Text);
+                Driver.FindElement(By.XPath("//*[@class='et_pb_tab et_pb_tab_1 clearfix et-pb-active-slide']")).Text);
             //in the HTML Table with id, highlight one of the salary cells
             HighlightElementUsingJavaScript(By.XPath("//td[contains(text(),'$150,000+')]"));
+
+                        // scrolling through the window till the Section "Highlight me" is shown
+            IJavaScriptExecutor JavaScriptExecutor = Driver as IJavaScriptExecutor;
+            JavaScriptExecutor.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
 
             //Highlight the center section called "Highlight me", but you can only
             //highlight the highest level div for that element. The top parent div.
             //Hint, this is the class - 
             //et_pb_column et_pb_column_1_3  et_pb_column_10 et_pb_css_mix_blend_mode_passthrough
-            HighlightElementUsingJavaScript(By.ClassName("et_pb_column et_pb_column_1_3  et_pb_column_10 et_pb_css_mix_blend_mode_passthrough"));
-            HighlightElementUsingJavaScript(
-                By.XPath("//*[@class='et_pb_column et_pb_column_1_3  et_pb_column_10 et_pb_css_mix_blend_mode_passthrough']"));
+            HighlightElementUsingJavaScript(By.XPath("et_pb_column et_pb_column_1_3  et_pb_column_10 et_pb_css_mix_blend_mode_passthrough"));
+            HighlightElementUsingJavaScript(By.XPath("//*[@class='et_pb_column et_pb_column_1_3 et_pb_column_9 et_pb_css_mix_blend_mode_passthrough']/.."));
         }
     }
 }
